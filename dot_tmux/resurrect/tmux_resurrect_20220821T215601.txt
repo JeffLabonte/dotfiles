@@ -1,0 +1,5 @@
+pane	dev-0	1	1	:*	1	debian-dev-machine	:/home/jflabonte/Development/garden-gateway	1	nvim	:nvim
+pane	dev-0	2	0	:-	1	debian-dev-machine	:/home/jflabonte/Development/garden-gateway	1	zsh	:
+window	dev-0	1	:nvim	1	:*	cfbd,173x58,0,0,0	:
+window	dev-0	2	:zsh	0	:-	cfbe,173x58,0,0,1	:
+state	dev-0	
