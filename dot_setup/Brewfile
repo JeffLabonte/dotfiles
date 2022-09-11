@@ -1,0 +1,7 @@
+brew "neovim"
+brew "lua"
+brew "luarocks"
+brew "fzf"
+brew "ripgrep"
+brew "lazygit"
+brew "awscli"
