@@ -1,77 +1,64 @@
 local M = {}
 
 function M.setup()
-  -- Indicate first time installation
-  local packer_bootstrap = false
+  local status_ok, alpha = pcall(require, "alpha")
+  if not status_ok then
+    return
+  end
 
-  -- packer.nvim configuration
-  local conf = {
-    display = {
-      open_fn = function()
-        return require("packer.util").float { border = "rounded" }
-      end,
-    },
+  local dashboard = require "alpha.themes.dashboard"
+  local function header()
+    return {
+      [[                                           bbbbbbbb            ]],
+      [[                                           b::::::b            ]],
+      [[                                           b::::::b            ]],
+      [[                                           b::::::b            ]],
+      [[                                            b:::::b            ]],
+      [[nnnn  nnnnnnnn    vvvvvvv           vvvvvvv b:::::bbbbbbbbb    ]],
+      [[n:::nn::::::::nn   v:::::v         v:::::v  b::::::::::::::bb  ]],
+      [[n::::::::::::::nn   v:::::v       v:::::v   b::::::::::::::::b ]],
+      [[nn:::::::::::::::n   v:::::v     v:::::v    b:::::bbbbb:::::::b]],
+      [[  n:::::nnnn:::::n    v:::::v   v:::::v     b:::::b    b::::::b]],
+      [[  n::::n    n::::n     v:::::v v:::::v      b:::::b     b:::::b]],
+      [[  n::::n    n::::n      v:::::v:::::v       b:::::b     b:::::b]],
+      [[  n::::n    n::::n       v:::::::::v        b:::::b     b:::::b]],
+      [[  n::::n    n::::n        v:::::::v         b:::::bbbbbb::::::b]],
+      [[  n::::n    n::::n         v:::::v          b::::::::::::::::b ]],
+      [[  n::::n    n::::n          v:::v           b:::::::::::::::b  ]],
+      [[  nnnnnn    nnnnnn           vvv            bbbbbbbbbbbbbbbb   ]],
+    }
+  end
+
+  dashboard.section.header.val = header()
+
+  dashboard.section.buttons.val = {
+    dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+    dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
+    dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
   }
 
-  -- Check if packer.nvim is installed
-  -- Run PackerCompile if there are changes in this file
-  local function packer_init()
-    local fn = vim.fn
-    local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-    if fn.empty(fn.glob(install_path)) > 0 then
-      packer_bootstrap = fn.system {
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-      }
-      vim.cmd [[packadd packer.nvim]]
-    end
-    vim.cmd "autocmd BufWritePost plugins.lua source <afile> | PackerCompile"
+  local function footer()
+    -- Number of plugins
+    local total_plugins = #vim.tbl_keys(packer_plugins)
+    local datetime = os.date "%d-%m-%Y  %H:%M:%S"
+    local plugins_text = "\t" .. total_plugins .. " plugins  " .. datetime
+
+    -- Quote
+    local fortune = require "alpha.fortune"
+    local quote = table.concat(fortune(), "\n")
+
+    return plugins_text .. "\n" .. quote
   end
 
-  -- Plugins
-  local function plugins(use)
-    use { "wbthomason/packer.nvim" }
+  dashboard.section.footer.val = footer()
 
-    -- Colorscheme
-    use {
-      "sainnhe/everforest",
-      config = function()
-        vim.cmd "colorscheme everforest"
-      end,
-    }
+  dashboard.section.footer.opts.hl = "Constant"
+  dashboard.section.header.opts.hl = "Include"
+  dashboard.section.buttons.opts.hl = "Function"
+  dashboard.section.buttons.opts.hl_shortcut = "Type"
+  dashboard.opts.opts.noautocmd = true
 
-    -- Startup screen
-    use {
-      "goolord/alpha-nvim",
-      config = function()
-        require("config.alpha").setup()
-      end,
-    }
-
-    -- Git
-    use {
-      "TimUntersberger/neogit",
-      requires = "nvim-lua/plenary.nvim",
-      config = function()
-        require("config.neogit").setup()
-      end,
-    }
-
-    if packer_bootstrap then
-      print "Restart Neovim required after installation!"
-      require("packer").sync()
-    end
-  end
-
-  packer_init()
-
-  local packer = require "packer"
-  packer.init(conf)
-  packer.startup(plugins)
+  alpha.setup(dashboard.opts)
 end
 
 return M
