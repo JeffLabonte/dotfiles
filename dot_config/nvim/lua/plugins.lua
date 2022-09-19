@@ -61,7 +61,14 @@ function M.setup()
       end,
     }
 
-    use "hrsh7th/nvim-cmp"
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        require("config.whichkey").setup()
+      end,
+    }
+
+    use { "hrsh7th/nvim-cmp" }
 
     use {
       "tzachar/cmp-tabnine",

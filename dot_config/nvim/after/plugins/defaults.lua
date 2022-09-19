@@ -27,3 +27,6 @@ vim.cmd [[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]]
+
+-- Time in milliseconds to wait for a mapped sequence to complete.
+opt.timeoutlen = 300
