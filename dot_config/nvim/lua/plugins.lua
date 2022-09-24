@@ -117,11 +117,6 @@ function M.setup()
 		}
 
 		use {
-			"junegunn/fzf",
-			run = "./install --all"
-		}
-
-		use {
 			"numToStr/Comment.nvim",
 			opt = true,
 			keys = { "gc", "gcc", "gbc" },
@@ -154,6 +149,8 @@ function M.setup()
       ft = "markdown",
       cmd = { "MarkdownPreview" },
     }
+
+		use { "junegunn/fzf", run = "./install --all" }
 
     if packer_bootstrap then
       print "Restart Neovim required after installation!"
