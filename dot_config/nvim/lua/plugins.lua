@@ -91,6 +91,32 @@ function M.setup()
 		}
 
 		use {
+			"nvim-lualine/lualine.nvim",
+			event = "VimEnter",
+			config = function()
+				require("config.lualine").setup()
+			end,
+			requires = { "nvim-web-devicons" },
+		}
+		
+		use {
+			"nvim-treesitter/nvim-treesitter",
+			run = ":TSUpdate",
+			config = function()
+			  require("config.treesitter").setup()
+			end,
+		}
+
+		use {
+			"SmiteshP/nvim-gps",
+			requires = "nvim-treesitter/nvim-treesitter",
+			module = "nvim-gps",
+			config = function()
+				require("nvim-gps").setup()
+			end,
+		}
+
+		use {
 			"numToStr/Comment.nvim",
 			opt = true,
 			keys = { "gc", "gcc", "gbc" },
@@ -122,17 +148,6 @@ function M.setup()
       end,
       ft = "markdown",
       cmd = { "MarkdownPreview" },
-    }
-
-    use { "hrsh7th/nvim-cmp" }
-
-    use {
-      "tzachar/cmp-tabnine",
-      run="./install.sh",
-      requires = 'hrsh7th/nvim-cmp',
-      config = function()
-				require("config.cmp-tabnine").setup()
-       end,
     }
 
     if packer_bootstrap then
