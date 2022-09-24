@@ -30,3 +30,12 @@ vim.cmd [[
 
 -- Time in milliseconds to wait for a mapped sequence to complete.
 opt.timeoutlen = 300
+
+opt.path:remove "/usr/include"
+opt.path:append "**"
+
+opt.wildignorecase = true
+opt.wildignore:append "**/node_modules/*"
+opt.wildignore:append "**/.git/*"
+opt.wildignore:append "**/build/*"
+opt.wildignore:append "**/.venv/*"

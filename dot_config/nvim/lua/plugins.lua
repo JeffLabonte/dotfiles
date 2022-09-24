@@ -117,6 +117,11 @@ function M.setup()
 		}
 
 		use {
+			"junegunn/fzf",
+			run = "./install --all"
+		}
+
+		use {
 			"numToStr/Comment.nvim",
 			opt = true,
 			keys = { "gc", "gcc", "gbc" },
@@ -124,7 +129,7 @@ function M.setup()
 				require("Comment").setup {}
 			end
 		}
-
+		
 		use {
       "phaazon/hop.nvim",
 			cmd = { "HopWord", "HopChar1" },
