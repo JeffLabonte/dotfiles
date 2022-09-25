@@ -149,6 +149,8 @@ function M.setup()
       ft = "markdown",
       cmd = { "MarkdownPreview" },
     }
+		
+		use {"tpope/vim-vinegar"}
 
 		use { "junegunn/fzf", run = "./install --all" }
 
