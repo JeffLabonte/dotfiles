@@ -141,6 +141,17 @@ function M.setup()
 			end
 		}
 
+		use {
+			"kyazdani42/nvim-tree.lua",
+ 			requires = {
+ 			  "kyazdani42/nvim-web-devicons",
+ 			},
+ 			cmd = { "NvimTreeToggle", "NvimTreeClose" },
+ 			  config = function()
+ 			    require("config.nvimtree").setup()
+ 			  end,
+		}
+
     use {
       "iamcco/markdown-preview.nvim",
       run = function()

@@ -51,6 +51,11 @@ function M.setup()
  			 g = { "<cmd>FzfLua live_grep<cr>", "Live grep" },
  			 c = { "<cmd>FzfLua commands<cr>", "Commands" },
 		},
+		
+		e = {
+			name = "Explorer",
+			e = { "<cmd>NvimTreeToggle<cr>", "Toggle"  }
+		}
   }
 
   whichkey.setup(conf)
