@@ -98,6 +98,33 @@ function M.setup()
 			end,
 			requires = { "nvim-web-devicons" },
 		}
+
+		
+		use {
+		  "stevearc/dressing.nvim",
+		  event = "BufEnter",
+		  config = function()
+		    require("dressing").setup {
+		      select = {
+		        backend = { "telescope", "fzf", "builtin" },
+		      },
+		    }
+		  end,
+		}
+		use { 
+			"nvim-telescope/telescope.nvim",
+			module = "telescope",
+			as = "telescope",
+		}
+
+		use {
+			"akinsho/nvim-bufferline.lua",
+  		event = "BufReadPre",
+  		wants = "nvim-web-devicons",
+  		config = function()
+  		  require("config.bufferline").setup()
+  		end,
+		}
 		
 		use {
 			"nvim-treesitter/nvim-treesitter",
