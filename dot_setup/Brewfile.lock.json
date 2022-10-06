@@ -317,6 +317,45 @@
             }
           }
         }
+      },
+      "llvm": {
+        "version": "15.0.1",
+        "bottle": {
+          "rebuild": 1,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:fdfd68ea1de4d641a99321efe0a84eaea7cb0b4c52187c778298763c272abd23",
+              "sha256": "fdfd68ea1de4d641a99321efe0a84eaea7cb0b4c52187c778298763c272abd23"
+            },
+            "arm64_big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:5cf07712b3b46adb8fd0c610c317ecbddfec903eeb605600c1176a92dab36042",
+              "sha256": "5cf07712b3b46adb8fd0c610c317ecbddfec903eeb605600c1176a92dab36042"
+            },
+            "monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:ccbb878c2a1d0c319bd1918835db75bf34e732cee6024c74ca7614e75dc95d9d",
+              "sha256": "ccbb878c2a1d0c319bd1918835db75bf34e732cee6024c74ca7614e75dc95d9d"
+            },
+            "big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:995d2381e80de10284dd9322fd64bcae8559c012d0b438122e481a69c8fc1b58",
+              "sha256": "995d2381e80de10284dd9322fd64bcae8559c012d0b438122e481a69c8fc1b58"
+            },
+            "catalina": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:46554596994fc34e4cb909ceed81a665342b0ba9f75f534619997c66c3c3e371",
+              "sha256": "46554596994fc34e4cb909ceed81a665342b0ba9f75f534619997c66c3c3e371"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/llvm/blobs/sha256:d18ae6a609df2fdfce6847733e6680dce34c81c0250870ec150fb32edad30e67",
+              "sha256": "d18ae6a609df2fdfce6847733e6680dce34c81c0250870ec150fb32edad30e67"
+            }
+          }
+        }
       }
     }
   },
@@ -325,7 +364,7 @@
       "Debian GNU/Linux 11 (bullseye) (bullseye)": {
         "HOMEBREW_VERSION": "3.6.4",
         "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
-        "Homebrew/linuxbrew-core": "579210916c241db536ff18803a88b88327db62c2",
+        "Homebrew/linuxbrew-core": "c908d0950fad5aa07c3cc33c732e51652ef5216d",
         "GCC": "10.2.1"
       }
     }
