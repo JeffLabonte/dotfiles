@@ -1,0 +1,6 @@
+pane	dev-0	1	1	:*	1	issue_unresolved_count_by_production_lines_serializers.py (~/Development/Poka/projects/poka_backend/api/issue_management/serializers) - NVIM	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	nvim	:nvim -u /Users/jflabonte/.local/share/lunarvim/lvim/init.lua
+pane	dev-0	2	0	:-	1	debian-dev-machine	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	zsh	:
+pane	dev-0	2	0	:-	2	jflabonte	:/Users/jflabonte/Development/Poka/projects/poka_backend	0	zsh	:
+window	dev-0	1	:nvim	1	:*	bb5e,257x81,0,0,1	:
+window	dev-0	2	:zsh	0	:-	c000,257x81,0,0{128x81,0,0,2,128x81,129,0,3}	:
+state	dev-0	

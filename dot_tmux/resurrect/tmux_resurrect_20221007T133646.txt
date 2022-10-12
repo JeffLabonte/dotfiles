@@ -1,0 +1,6 @@
+pane	dev-0	1	0	:##-	1	urls.py (~/Development/Poka/projects/poka_backend/api/issue_management) - NVIM	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	nvim	:nvim -u /Users/jflabonte/.local/share/lunarvim/lvim/init.lua
+pane	dev-0	2	1	:*	1	debian-dev-machine	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	zsh	:
+pane	dev-0	2	1	:*	2	jflabonte	:/Users/jflabonte/Development/Poka/projects/poka_backend	0	zsh	:
+window	dev-0	1	:nvim	0	:##-	bb5e,257x81,0,0,1	:
+window	dev-0	2	:zsh	1	:*	c000,257x81,0,0{128x81,0,0,2,128x81,129,0,3}	:
+state	dev-0	

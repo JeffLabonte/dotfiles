@@ -1,0 +1,10 @@
+pane	dev-0	1	1	:*	1	test_unresolved_issue_counts_by_production_lines.py + (~/Development/Poka/projects/poka_backend/tests/unit/api/issue_management/serializers) - NVIM	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	nvim	:nvim -u /Users/jflabonte/.local/share/lunarvim/lvim/init.lua
+pane	dev-0	2	0	:-	1	debian-dev-machine	:/Users/jflabonte/Development/Poka/projects/poka_backend	0	Python	:/opt/homebrew/Cellar/python@3.9/3.9.14/Frameworks/Python.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python ./manage.py runserver --settings=settings.dev
+pane	dev-0	2	0	:-	2	jflabonte	:/Users/jflabonte/Development/Poka/projects/poka_backend	1	zsh	:
+pane	dev-0	3	0	:	1	jflabonte	:/Users/jflabonte/Library/CloudStorage/GoogleDrive-jflabonte@poka.io/My\ Drive/Analysis/Perlman	1	zsh	:nvim -u /Users/jflabonte/.local/share/lunarvim/lvim/init.lua PTP-1739 
+pane	dev-0	4	0	:	1	jflabonte	:/Users/jflabonte/Development/Poka/instance-service	1	zsh	:
+window	dev-0	1	:nvim	1	:*	b53e,320x90,0,0,1	:
+window	dev-0	2	:zsh	0	:-	c6e7,320x90,0,0{160x90,0,0,2,159x90,161,0,3}	:
+window	dev-0	3	:zsh	0	:	bb64,257x81,0,0,7	:
+window	dev-0	4	:instance-service	0	:	bb65,257x81,0,0,8	off
+state	dev-0	
