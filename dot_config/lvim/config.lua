@@ -137,8 +137,8 @@ lvim.lsp.installer.setup.ensure_installed = {
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", filetypes = { "python" } },
-  { command = "isort", filetypes = { "python" } },
+  { command = "autopep8", filetypes = { "python" } },
+  { command = "isort", args = { '-l', '160', '-m', '2' }, filetypes = { "python" } },
 }
 
 -- -- set additional linters
@@ -159,8 +159,37 @@ formatters.setup {
 --   },
 -- }
 
+local cmp = require "cmp"
+lvim.builtin.cmp.mapping["<C-e>"] = function(fallback)
+  cmp.mapping.abort()
+  local copilot_keys = vim.fn["copilot#Accept"]()
+  if copilot_keys ~= "" then
+    vim.api.nvim_feedkeys(copilot_keys, "i", true)
+  else
+    fallback()
+  end
+end
+
 -- Additional Plugins
 lvim.plugins = {
+  {
+    "github/copilot.vim",
+    disable = false,
+    config = function()
+      -- copilot assume mapped
+      vim.g.copilot_assume_mapped = true
+      vim.g.copilot_no_tab_map = true
+    end
+  },
+  {
+    "hrsh7th/cmp-copilot",
+    disable = false,
+    config = function()
+      lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
+      table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
+    end
+  },
+  { "mfussenegger/nvim-dap-python" }
 }
 
 local dap = require('dap')
@@ -169,6 +198,14 @@ dap.adapters.lldb = {
   command = "lldb-vscode",
   name = "lldb",
 }
+
+-- dap.adapters.python = {
+--   type = 'executable',
+--   command = 'python',
+--   args = { '-m', 'debugpy.adapter' },
+-- }
+
+require('dap-python').setup('python')
 
 dap.configurations.rust = {
   {
@@ -182,6 +219,48 @@ dap.configurations.rust = {
     cwd = "${workspaceFolder}"
   }
 }
+
+dap.configurations.python = {
+  {
+    name = 'Debug Runserver Django',
+    type = 'python',
+    request = 'launch',
+    program = '${workspaceFolder}/manage.py',
+    args = { 'runserver', '--settings=settings.dev' },
+    django = true,
+    justMyCode = false,
+    console = 'integratedTerminal',
+    python = '${workspaceFolder}/.venv/bin/python',
+  }
+}
+
+
+--- Copilot Code
+-- use this table to disable/enable filetypes
+vim.g.copilot_filetypes = { xml = false, json = false }
+
+-- since most are enabled by default you can turn them off
+-- using this table and only enable for a few filetypes
+-- vim.g.copilot_filetypes = { ["*"] = false, python = true }
+
+
+-- imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")
+-- vim.g.copilot_no_tab_map = true
+-- vim.keymap.set.keymap("i", "<C-a>", ":copilot#Accept('\\<CR>')<CR>", { silent = true })
+
+-- <C-]>                   Dismiss the current suggestion.
+-- <Plug>(copilot-dismiss)
+--
+--                                                 *copilot-i_ALT-]*
+-- <M-]>                   Cycle to the next suggestion, if one is available.
+-- <Plug>(copilot-next)
+--
+--                                                 *copilot-i_ALT-[*
+-- <M-[>                   Cycle to the previous suggestion.
+-- <Plug>(copilot-previous)
+
+
+vim.cmd [[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
