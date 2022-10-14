@@ -20,8 +20,8 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.format_on_save = true
--- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
--- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -51,15 +51,13 @@ lvim.format_on_save = true
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Tab",
+  ["n"] = { "<cmd>tabnew<CR>", "New Tab" },
+  ["c"] = { "<cmd>tabclose<CR>", "Close Tab" },
+  ["l"] = { "<cmd>tabmove +1<CR>", "Move Tab Right" },
+  ["h"] = { "<cmd>tabmove -1<CR>", "Move Tab Left" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -189,7 +187,6 @@ lvim.plugins = {
       table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
     end
   },
-  { "mfussenegger/nvim-dap-python" }
 }
 
 local dap = require('dap')
@@ -199,13 +196,12 @@ dap.adapters.lldb = {
   name = "lldb",
 }
 
--- dap.adapters.python = {
---   type = 'executable',
---   command = 'python',
---   args = { '-m', 'debugpy.adapter' },
--- }
+dap.adapters.python = {
+  type = 'executable',
+  command = 'python',
+  args = { '-m', 'debugpy.adapter' },
+}
 
-require('dap-python').setup('python')
 
 dap.configurations.rust = {
   {
