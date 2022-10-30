@@ -55,8 +55,13 @@ lvim.builtin.which_key.mappings["t"] = {
   name = "+Tab",
   ["n"] = { "<cmd>tabnew<CR>", "New Tab" },
   ["c"] = { "<cmd>tabclose<CR>", "Close Tab" },
-  ["l"] = { "<cmd>tabmove +1<CR>", "Move Tab Right" },
-  ["h"] = { "<cmd>tabmove -1<CR>", "Move Tab Left" },
+}
+
+lvim.builtin.which_key.mappings["v"] = {
+  name = "+VimInspector",
+  ["l"] = { "<cmd>call vimspector#Launch()<CR>", "Launch" },
+  ["r"] = { "<cmd>VimspectorReset<CR>", "Reset" },
+  ["e"] = { "<cmd>vimspectorEval<CR>", "Eval" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -178,6 +183,9 @@ lvim.plugins = {
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_no_tab_map = true
     end
+  },
+  {
+    "puremourning/vimspector"
   },
   {
     "hrsh7th/cmp-copilot",
