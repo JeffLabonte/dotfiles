@@ -61,12 +61,13 @@ lvim.builtin.which_key.mappings["v"] = {
   name = "+VimInspector",
   ["l"] = { "<cmd>call vimspector#Launch()<CR>", "Launch" },
   ["r"] = { "<cmd>VimspectorReset<CR>", "Reset" },
-  ["e"] = { "<cmd>vimspectorEval<CR>", "Eval" },
-  ["c"] = { "<cmd>vimspector#Continue()<CR>", "Continue" },
-  ["s"] = { "<cmd>vimspector#StepOver()<CR>", "Step Over" },
-  ["i"] = { "<cmd>vimspector#StepInto()<CR>", "Step Into" },
-  ["o"] = { "<cmd>vimspector#StepOut()<CR>", "Step Out" },
-  ["t"] = { "<cmd>vimspector#ToggleBreakpoint()<CR<", "Toggle Breakpoint" },
+  ["e"] = { "cmd>vimspectorEval<CR>", "Eval" },
+  ["c"] = { "<cmd>call vimspector#Continue()<CR>", "Continue" },
+  ["s"] = { "<cmd>call vimspector#StepOver()<CR>", "Step Over" },
+  ["i"] = { "<cmd>call vimspector#StepInto()<CR>", "Step Into" },
+  ["o"] = { "<cmd>call vimspector#StepOut()<CR>", "Step Out" },
+  ["t"] = { "<cmd>call vimspector#ToggleBreakpoint()<cr>", "Toggle Breakpoint" },
+  ["G"] = { "<cmd>lua require('config.vimspector').generate_debug_profile()<cr>", "Generate Debug Profile" },
 }
 
 -- TODO: User Config for predefined plugins
