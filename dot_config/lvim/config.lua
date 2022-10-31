@@ -62,6 +62,11 @@ lvim.builtin.which_key.mappings["v"] = {
   ["l"] = { "<cmd>call vimspector#Launch()<CR>", "Launch" },
   ["r"] = { "<cmd>VimspectorReset<CR>", "Reset" },
   ["e"] = { "<cmd>vimspectorEval<CR>", "Eval" },
+  ["c"] = { "<cmd>vimspector#Continue()<CR>", "Continue" },
+  ["s"] = { "<cmd>vimspector#StepOver()<CR>", "Step Over" },
+  ["i"] = { "<cmd>vimspector#StepInto()<CR>", "Step Into" },
+  ["o"] = { "<cmd>vimspector#StepOut()<CR>", "Step Out" },
+  ["t"] = { "<cmd>vimspector#ToggleBreakpoint()<CR<", "Toggle Breakpoint" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -185,7 +190,7 @@ lvim.plugins = {
     end
   },
   {
-    "puremourning/vimspector"
+    "puremourning/vimspector",
   },
   {
     "hrsh7th/cmp-copilot",
@@ -203,13 +208,6 @@ dap.adapters.lldb = {
   command = "lldb-vscode",
   name = "lldb",
 }
-
-dap.adapters.python = {
-  type = 'executable',
-  command = 'python',
-  args = { '-m', 'debugpy.adapter' },
-}
-
 
 dap.configurations.rust = {
   {
@@ -263,9 +261,9 @@ vim.g.copilot_filetypes = { xml = false, json = false }
 -- <M-[>                   Cycle to the previous suggestion.
 -- <Plug>(copilot-previous)
 
-
 vim.cmd [[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
 
+vim.g.vimspector_install_gadgets = { 'debugpy', "CodeLLDB", "vscode-node-debug2" }
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = { "*.json", "*.jsonc" },
