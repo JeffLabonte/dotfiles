@@ -1,0 +1,4 @@
+#!/bin/bash
+
+FILES=$(git -C $(pwd) status | grep ".py" | sed 's/modified: //g')
+autopep8 --in-place $FILES

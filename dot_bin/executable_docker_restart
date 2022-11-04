@@ -1,0 +1,9 @@
+#!/bin/bash
+docker rm -f memcached 2>&1
+docker rm -f redis 2>&1
+docker rm -f elasticsearch > /dev/null 2>&1
+docker rm -f poka_backend_postgres > /dev/null 2>&1
+docker run --name memcached -d -p 11211:11211 memcached
+docker run --name redis -d -p 6379:6379 redis
+docker run --name elasticsearch -d -p 9200:9200 -p 9300:9300 elasticsearch:5.6
+docker run --name poka_backend_postgres -d -p 5432:5432 postgres:10.4-alpine

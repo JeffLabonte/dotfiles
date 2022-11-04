@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "== Reset Database"
+DATABASE=$1
+FILE=$2
+ROLE='poka_dev'
+USERNAME='poka_dev'
+PORT=5432
+HOST='localhost'
+echo "DROP CONNEXIONS OF $DATABASE"
+psql --host=$HOST --username=$USERNAME --port=$PORT --command="SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '$DATABASE' AND pid <> pg_backend_pid();" postgres
+echo "DROP DATABASE $DATABASE IF EXISTS"
+psql --host=$HOST --username=$USERNAME --port=$PORT --command="DROP DATABASE IF EXISTS $DATABASE;" postgres
+echo "CREATE $DATABASE WITH OWNER $ROLE"
+psql --host=$HOST --username=$USERNAME --port=$PORT --command="CREATE DATABASE $DATABASE WITH OWNER $ROLE;" postgres
+echo "DUMP DATA IN $DATABASE"
+psql $DATABASE < $FILE
+

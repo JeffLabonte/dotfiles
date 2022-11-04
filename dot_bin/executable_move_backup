@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+import glob
+from pathlib import Path
+
+
+BACKEND_PROJECT_PATH = Path.home().joinpath(
+    "Development",
+    "Poka",
+    "projects",
+    "poka_backend",
+)
+
+DOWNLOAD_FOLDER_PATH = Path.home().joinpath("Downloads",)
+
+
+def find_backup_s3(name="db_team*.sql"):
+    return glob.glob(str(DOWNLOAD_FOLDER_PATH.joinpath(name)))
+
+
+if __name__ == "__main__":
+    if backup_file := find_backup_s3():
+        print(backup_file)

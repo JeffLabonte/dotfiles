@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+case $1 in
+  "dev")
+    aws sso login --profile poka-dev-user
+    ;;
+  "canada-prod")
+    export AWS_DEFAULT_REGION=ca-central-1
+    export AWS_PROFILE=poka-prod-ca-central-1-engineeringrequest
+
+    aws sso login --profile poka-prod-ca-central-1-engineeringrequest
+    ;;
+  "eu-prod")
+    export AWS_DEFAULT_REGION=eu-central-1
+    export AWS_PROFILE=poka-prod-eu-central-1-engineeringrequest
+
+    aws sso login --profile poka-prod-eu-central-1-engineeringrequest
+    ;;
+  "us-prod")
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_PROFILE=poka-prod-us-east-1-engineeringrequest
+
+    aws sso login --profile poka-prod-us-east-1-engineeringrequest
+    ;;
+  "canada-stage")
+    export AWS_DEFAULT_REGION=ca-central-1
+    export AWS_PROFILE=poka-stage-ca-central-1
+
+    aws sso login --profile poka-stage-ca-central-1
+    ;;
+  "us-stage")
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_PROFILE=poka-stage-us-east-1
+
+    aws sso login --profile poka-stage-us-east-1
+    ;;
+  "canada-dev")
+    export AWS_DEFAULT_REGION=ca-central-1
+    export AWS_PROFILE=poka-dev-ca-central-1
+
+    aws sso login --profile poka-dev-ca-central-1
+    ;;
+  "us-dev")
+    export AWS_DEFAULT_REGION=us-east-1
+    export AWS_PROFILE=poka-dev-us-east-1
+
+    aws sso login --profile poka-dev-us-east-1
+    ;;
+  *)
+    echo "Supported Input:"
+    echo "* canada-prod"
+    echo "* canada-stage"
+    echo "* canada-dev"
+    echo "* us-prod"
+    echo "* us-stage"
+    echo "* us-dev"
+    echo "* eu-prod"
+    echo "* eu-stage"
+    echo "* dev"
+esac

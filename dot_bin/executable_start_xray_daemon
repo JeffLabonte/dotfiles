@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm --network docker-compose_default  --attach STDOUT -v ~/.aws/:/root/.aws/:ro -e AWS_REGION=us-east-1 -e AWS_PROFILE=sandbox --name xray-daemon  -p 2000:2000/udp 'amazon/aws-xray-daemon' -o

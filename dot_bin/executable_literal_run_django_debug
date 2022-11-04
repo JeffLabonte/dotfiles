@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+ python -m debugpy --listen 5678 --wait-for-client manage.py runserver --noreload --settings=settings.dev
