@@ -179,10 +179,26 @@ lvim.plugins = {
   },
   {
     "mfussenegger/nvim-dap-python",
+    required = {
+      "mfussenegger/nvim-dap",
+    },
     config = function()
       local dap_python = require("dap-python")
       dap_python.test_runtest = "pytest"
       dap_python.setup()
+      table.insert(require('dap').configurations.python, {
+        name = 'Test Selected Test File',
+        type = 'python',
+        request = 'launch',
+        module = "py.test",
+        args = {
+          "--runslow",
+          "--randomly-dont-reset-seed",
+          "--disable-warnings",
+          "--ds=settings.test",
+          "${file}"
+        }
+      })
     end
   },
   {
@@ -225,31 +241,7 @@ dap.configurations.rust = {
 }
 
 
-table.insert(dap.configurations.python, {
-  name = 'Test Selected Test File',
-  type = 'python',
-  request = 'launch',
-  module = "py.test",
-  args = {
-    "--runslow",
-    "--randomly-dont-reset-seed",
-    "--disable-warnings",
-    "--ds=settings.test",
-    "${file}"
-  }
-})
 
-table.insert(dap.configurations.python, {
-  name = 'Debug Runserver Django',
-  type = 'python',
-  python = '${workspaceFolder}/.venv/bin/python',
-  request = 'launch',
-  program = '${workspaceFolder}/manage.py',
-  args = {
-    'runserver',
-    '--settings=settings.dev',
-  }
-})
 --- Copilot Code
 -- use this table to disable/enable filetypes
 vim.g.copilot_filetypes = { xml = false, json = false }
