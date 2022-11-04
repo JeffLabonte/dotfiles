@@ -57,24 +57,11 @@ lvim.builtin.which_key.mappings["t"] = {
   ["c"] = { "<cmd>tabclose<CR>", "Close Tab" },
 }
 
-lvim.builtin.which_key.mappings["v"] = {
-  name = "+VimInspector",
-  ["l"] = { "<cmd>call vimspector#Launch()<CR>", "Launch" },
-  ["r"] = { "<cmd>VimspectorReset<CR>", "Reset" },
-  ["e"] = { "cmd>vimspectorEval<CR>", "Eval" },
-  ["c"] = { "<cmd>call vimspector#Continue()<CR>", "Continue" },
-  ["s"] = { "<cmd>call vimspector#StepOver()<CR>", "Step Over" },
-  ["i"] = { "<cmd>call vimspector#StepInto()<CR>", "Step Into" },
-  ["o"] = { "<cmd>call vimspector#StepOut()<CR>", "Step Out" },
-  ["t"] = { "<cmd>call vimspector#ToggleBreakpoint()<cr>", "Toggle Breakpoint" },
-  ["G"] = { "<cmd>lua require('config.vimspector').generate_debug_profile()<cr>", "Generate Debug Profile" },
-}
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
+-- lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
@@ -104,14 +91,14 @@ lvim.builtin.treesitter.highlight.enable = true
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
 lvim.lsp.installer.setup.ensure_installed = {
-  "sumeko_lua",
+  -- "sumeko_lua",
   "jsonls",
   "pyright",
-  "rust-analyzer",
+  --  "rust-analyzer",
 }
 -- -- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
--- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
+--lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = true
 -- lvim.lsp.installer.setup.ui.border = "rounded"
 -- lvim.lsp.installer.setup.ui.keymaps = {
 --     uninstall_server = "d",
@@ -191,7 +178,11 @@ lvim.plugins = {
     end
   },
   {
-    "puremourning/vimspector",
+    "mfussenegger/nvim-dap-python",
+    config = function()
+      local dap_python = require("dap-python")
+      dap_python.test_runtest = "pytest"
+    end
   },
   {
     "hrsh7th/cmp-copilot",
@@ -201,6 +192,15 @@ lvim.plugins = {
       table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
     end
   },
+  {
+    "phaazon/hop.nvim",
+    event = "BufRead",
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+    end,
+  },
 }
 
 local dap = require('dap')
@@ -208,6 +208,12 @@ dap.adapters.lldb = {
   type = "executable",
   command = "lldb-vscode",
   name = "lldb",
+}
+
+dap.adapters.python = {
+  type = 'executable';
+  command = "python3",
+  args = { '-m', 'debugpy.adapter' };
 }
 
 dap.configurations.rust = {
@@ -234,6 +240,20 @@ dap.configurations.python = {
     justMyCode = false,
     console = 'integratedTerminal',
     python = '${workspaceFolder}/.venv/bin/python',
+  },
+  {
+    name = 'Test Selected Test File',
+    type = 'python',
+    request = 'launch',
+    module = "py.test",
+    args = {
+      "--runslow",
+      "--randomly-dont-reset-seed",
+      "--disable-warnings",
+      "--ds=settings.test",
+      "${file}"
+    },
+    console = "externalTerminal"
   }
 }
 
