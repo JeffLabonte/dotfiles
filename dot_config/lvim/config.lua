@@ -182,6 +182,7 @@ lvim.plugins = {
     config = function()
       local dap_python = require("dap-python")
       dap_python.test_runtest = "pytest"
+      dap_python.setup()
     end
   },
   {
@@ -210,12 +211,6 @@ dap.adapters.lldb = {
   name = "lldb",
 }
 
-dap.adapters.python = {
-  type = 'executable';
-  command = "python3",
-  args = { '-m', 'debugpy.adapter' };
-}
-
 dap.configurations.rust = {
   {
     type = "lldb",
@@ -229,35 +224,32 @@ dap.configurations.rust = {
   }
 }
 
-dap.configurations.python = {
-  {
-    name = 'Debug Runserver Django',
-    type = 'python',
-    request = 'launch',
-    program = '${workspaceFolder}/manage.py',
-    args = { 'runserver', '--settings=settings.dev' },
-    django = true,
-    justMyCode = false,
-    console = 'integratedTerminal',
-    python = '${workspaceFolder}/.venv/bin/python',
-  },
-  {
-    name = 'Test Selected Test File',
-    type = 'python',
-    request = 'launch',
-    module = "py.test",
-    args = {
-      "--runslow",
-      "--randomly-dont-reset-seed",
-      "--disable-warnings",
-      "--ds=settings.test",
-      "${file}"
-    },
-    console = "externalTerminal"
+
+table.insert(dap.configurations.python, {
+  name = 'Test Selected Test File',
+  type = 'python',
+  request = 'launch',
+  module = "py.test",
+  args = {
+    "--runslow",
+    "--randomly-dont-reset-seed",
+    "--disable-warnings",
+    "--ds=settings.test",
+    "${file}"
   }
-}
+})
 
-
+table.insert(dap.configurations.python, {
+  name = 'Debug Runserver Django',
+  type = 'python',
+  python = '${workspaceFolder}/.venv/bin/python',
+  request = 'launch',
+  program = '${workspaceFolder}/manage.py',
+  args = {
+    'runserver',
+    '--settings=settings.dev',
+  }
+})
 --- Copilot Code
 -- use this table to disable/enable filetypes
 vim.g.copilot_filetypes = { xml = false, json = false }
