@@ -1,0 +1,7 @@
+[env_var.AWS_DEFAULT_REGION]
+variable = "AWS_DEFAULT_REGION"
+format = "$env_value (fg:red)"
+
+[env_var.AWS_PROFILE]
+variable = "AWS_PROFILE"
+format = "$env_value (fg:red)"
