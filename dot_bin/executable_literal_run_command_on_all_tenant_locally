@@ -1,0 +1,10 @@
+#!/bin/bash
+
+TENANTS=$(psql --username "poka_dev" --dbname="poka_dev" --host localhost -c "\dn" | awk '{ print $1 }' | tail -n +4 | sed -e 's/([0-9].//g')
+
+for tenant in $TENANTS
+do
+  echo "Tenant: $tenant"
+  ./multi_tenant_db_helper.sh "$tenant" > /dev/null 2>&1
+  .venv/bin/python manage.py "$@"
+done

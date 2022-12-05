@@ -35,6 +35,12 @@ case $1 in
 
     aws sso login --profile poka-stage-us-east-1
     ;;
+  "eu-stage")
+    export AWS_DEFAULT_REGION=eu-central-1
+    export AWS_PROFILE=poka-stage-eu-central-1
+
+    aws sso login --profile poka-stage-eu-central-1
+    ;;
   "canada-dev")
     export AWS_DEFAULT_REGION=ca-central-1
     export AWS_PROFILE=poka-dev-ca-central-1
