@@ -218,6 +218,14 @@ lvim.plugins = {
       vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
     end,
   },
+  {
+    "akinsho/flutter-tools.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("flutter-tools").setup()
+    end,
+  }
+
 }
 
 local dap = require('dap')
@@ -239,8 +247,6 @@ dap.configurations.rust = {
     cwd = "${workspaceFolder}"
   }
 }
-
-
 
 --- Copilot Code
 -- use this table to disable/enable filetypes
