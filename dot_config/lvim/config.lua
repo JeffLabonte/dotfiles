@@ -155,27 +155,25 @@ formatters.setup {
 --   },
 -- }
 
-local cmp = require "cmp"
-lvim.builtin.cmp.mapping["<C-e>"] = function(fallback)
-  cmp.mapping.abort()
-  local copilot_keys = vim.fn["copilot#Accept"]()
-  if copilot_keys ~= "" then
-    vim.api.nvim_feedkeys(copilot_keys, "i", true)
-  else
-    fallback()
-  end
-end
-
 -- Additional Plugins
 lvim.plugins = {
   {
-    "github/copilot.vim",
-    disable = false,
+    "hrsh7th/nvim-cmp"
+  },
+  {
+    "tzachar/cmp-tabnine",
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-cmp",
     config = function()
-      -- copilot assume mapped
-      vim.g.copilot_assume_mapped = true
-      vim.g.copilot_no_tab_map = true
-    end
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 10,
+        sort = true,
+      }
+    end,
+    opt = true,
+    event = "InsertEnter",
   },
   {
     "mfussenegger/nvim-dap-python",
@@ -186,11 +184,16 @@ lvim.plugins = {
       local dap_python = require("dap-python")
       dap_python.test_runtest = "pytest"
       dap_python.setup()
+
+      dap_python.resolve_python = function()
+        return ".venv/bin/python"
+      end
+
       table.insert(require('dap').configurations.python, {
         name = 'Test Selected Test File',
         type = 'python',
         request = 'launch',
-        module = "py.test",
+        module = "pytest",
         args = {
           "--runslow",
           "--randomly-dont-reset-seed",
@@ -198,15 +201,8 @@ lvim.plugins = {
           "--ds=settings.test",
           "${file}"
         }
+
       })
-    end
-  },
-  {
-    "hrsh7th/cmp-copilot",
-    disable = false,
-    config = function()
-      lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
-      table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
     end
   },
   {
@@ -240,45 +236,4 @@ dap.configurations.rust = {
   }
 }
 
-
-
---- Copilot Code
--- use this table to disable/enable filetypes
-vim.g.copilot_filetypes = { xml = false, json = false }
-
--- since most are enabled by default you can turn them off
--- using this table and only enable for a few filetypes
--- vim.g.copilot_filetypes = { ["*"] = false, python = true }
-
-
--- imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")
--- vim.g.copilot_no_tab_map = true
--- vim.keymap.set.keymap("i", "<C-a>", ":copilot#Accept('\\<CR>')<CR>", { silent = true })
-
--- <C-]>                   Dismiss the current suggestion.
--- <Plug>(copilot-dismiss)
---
---                                                 *copilot-i_ALT-]*
--- <M-]>                   Cycle to the next suggestion, if one is available.
--- <Plug>(copilot-next)
---
---                                                 *copilot-i_ALT-[*
--- <M-[>                   Cycle to the previous suggestion.
--- <Plug>(copilot-previous)
-
-vim.cmd [[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
-
 vim.g.vimspector_install_gadgets = { 'debugpy', "CodeLLDB", "vscode-node-debug2" }
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = { "*.json", "*.jsonc" },
---   -- enable wrap mode for json files only
---   command = "setlocal wrap",
--- })
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
