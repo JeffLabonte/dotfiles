@@ -30,6 +30,10 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   
   alias run_login_aws="source ~/.bin/login_aws"
 fi
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+  eval $(ssh-agent -s)
+  source $HOME/.cargo/env
+fi
 # eval `ssh-agent -s` && ssh-add -K ~/.ssh/github_personnal
 export EDITOR=lvim
 
@@ -38,15 +42,11 @@ export EDITOR=lvim
 # eval "$(pyenv virtualenv-init -)"
 export TERMINAL=alacritty
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 alias edit_zsh="nvim ~/.zshrc"
 alias reload_zsh="source ~/.zshrc"
 alias update_brew="brew update && brew upgrade"
 alias emacs="emacs -nw"
 alias nvim="lvim"
-
 
 # Git shortcut
 alias gs="git status"
@@ -254,3 +254,5 @@ _gh()
 if [ "$funcstack[1]" = "_gh" ]; then
     _gh
 fi
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
