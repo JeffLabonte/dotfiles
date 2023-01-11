@@ -158,7 +158,22 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   {
-    "hrsh7th/nvim-cmp"
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    module = "persistence",
+    config = function()
+      require("persistence").setup {
+        dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+        options = { "buffers", "curdir", "tabpages", "winsize" },
+      }
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
   },
   {
     "tzachar/cmp-tabnine",
@@ -174,6 +189,9 @@ lvim.plugins = {
     end,
     opt = true,
     event = "InsertEnter",
+  },
+  {
+    "wakatime/vim-wakatime"
   },
   {
     "mfussenegger/nvim-dap-python",
@@ -215,13 +233,18 @@ lvim.plugins = {
     end,
   },
   {
-    "akinsho/flutter-tools.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    "rmagatti/goto-preview",
     config = function()
-      require("flutter-tools").setup()
+      require('goto-preview').setup {
+        width = 120; -- Width of the floating window
+        height = 25; -- Height of the floating window
+        default_mappings = false; -- Bind default mappings
+        debug = false; -- Print debug information
+        opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
+      }
     end,
-  }
-
+  },
 }
 
 local dap = require('dap')
@@ -245,3 +268,10 @@ dap.configurations.rust = {
 }
 
 vim.g.vimspector_install_gadgets = { 'debugpy', "CodeLLDB", "vscode-node-debug2" }
+
+lvim.builtin.which_key.mappings["S"] = {
+  name = "Session",
+  c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+  l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+  Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
