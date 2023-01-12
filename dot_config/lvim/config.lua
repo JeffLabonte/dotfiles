@@ -10,7 +10,7 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = false
+lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -245,6 +245,14 @@ lvim.plugins = {
       }
     end,
   },
+  {
+    "jackMort/ChatGPT.nvim",
+    config = function() require("chatgpt").setup({}) end,
+    requires = {
+      "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  }
 }
 
 local dap = require('dap')
@@ -274,4 +282,11 @@ lvim.builtin.which_key.mappings["S"] = {
   c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
   l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
   Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
+
+lvim.builtin.which_key.mappings["G"] = {
+  name = "ChatGPT",
+  k = { "<cmd>:ChatGPT<cr>", "ChatGPT session" },
+  j = { "<cmd>:ChatGPTActAs<cr>", "ChatGPT Act As" },
+  t = { "<cmd>:ChatGPTEditWithInstructions<cr>", "Use ChatGPT to edit" }
 }

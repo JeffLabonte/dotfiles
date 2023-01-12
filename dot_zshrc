@@ -8,21 +8,20 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git/*"'
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   export DD_TRACE_STARTUP_LOGS=0
+  export DJANGO_SETTINGS=settings.dev
 
-  ssh-add --apple-use-keychain  ~/.ssh/github_personnal
   export PINENTRY_USER_DATA=USE_TTY=1
 
-  export PATH="$PATH:/opt/homebrew/opt:$HOME/.local/bin"
+  export PATH="$PATH:/opt/homebrew/opt:$HOME/.local/bin:/opt/homebrew/opt/openssl@3/bin"
   export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+  export PYCURL_SSL_LIBRARY=openssl
 
-  VIRTUALENVWRAPPER_PYTHON=$(which python3)
-  if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-      . /usr/local/bin/virtualenvwrapper.sh
-  fi
-  
+
   export PATH="$HOME/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
+
+  ssh-add --apple-use-keychain  ~/.ssh/github_personnal
   # Poka Related
   alias poka_backend="cd ~/Development/Poka/projects/poka_backend"
   alias html_rendering_service="cd ~/Development/Poka/projects/html-rendering-service"
@@ -30,29 +29,26 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   
   alias run_login_aws="source ~/.bin/login_aws"
 fi
-if [[ $OSTYPE == 'linux-gnu' ]]; then
-  eval $(ssh-agent -s)
-  source $HOME/.cargo/env
-fi
-# eval `ssh-agent -s` && ssh-add -K ~/.ssh/github_personnal
-export EDITOR=lvim
 
-# Note befre the if statement otherwise error
-
-# eval "$(pyenv virtualenv-init -)"
-export TERMINAL=alacritty
-
-alias edit_zsh="nvim ~/.zshrc"
-alias reload_zsh="source ~/.zshrc"
-alias update_brew="brew update && brew upgrade"
-alias emacs="emacs -nw"
-alias nvim="lvim"
-
+# ChatGPT
+source "$HOME/.openai_key.zsh"
 # Git shortcut
 alias gs="git status"
 alias gcommit="git commit . -p"
 # alias gpush="git push -u origin $(current_branch)"
 # alias gsync="git pull origin $(git branch | grep 'master\|main')"
+alias edit_zsh="nvim ~/.zshrc"
+alias reload_zsh="source ~/.zshrc"
+alias update_brew="brew update && brew upgrade"
+alias emacs="emacs -nw"
+
+export EDITOR="nvim"
+# eval "$(pyenv virtualenv-init -)"
+export TERMINAL=alacritty
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 
 neofetch
 
@@ -254,5 +250,181 @@ _gh()
 if [ "$funcstack[1]" = "_gh" ]; then
     _gh
 fi
+#compdef _colima colima
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+# zsh completion for colima                               -*- shell-script -*-
+
+__colima_debug()
+{
+    local file="$BASH_COMP_DEBUG_FILE"
+    if [[ -n ${file} ]]; then
+        echo "$*" >> "${file}"
+    fi
+}
+
+_colima()
+{
+    local shellCompDirectiveError=1
+    local shellCompDirectiveNoSpace=2
+    local shellCompDirectiveNoFileComp=4
+    local shellCompDirectiveFilterFileExt=8
+    local shellCompDirectiveFilterDirs=16
+
+    local lastParam lastChar flagPrefix requestComp out directive comp lastComp noSpace
+    local -a completions
+
+    __colima_debug "\n========= starting completion logic =========="
+    __colima_debug "CURRENT: ${CURRENT}, words[*]: ${words[*]}"
+
+    # The user could have moved the cursor backwards on the command-line.
+    # We need to trigger completion from the $CURRENT location, so we need
+    # to truncate the command-line ($words) up to the $CURRENT location.
+    # (We cannot use $CURSOR as its value does not work when a command is an alias.)
+    words=("${=words[1,CURRENT]}")
+    __colima_debug "Truncated words[*]: ${words[*]},"
+
+    lastParam=${words[-1]}
+    lastChar=${lastParam[-1]}
+    __colima_debug "lastParam: ${lastParam}, lastChar: ${lastChar}"
+
+    # For zsh, when completing a flag with an = (e.g., colima -n=<TAB>)
+    # completions must be prefixed with the flag
+    setopt local_options BASH_REMATCH
+    if [[ "${lastParam}" =~ '-.*=' ]]; then
+        # We are dealing with a flag with an =
+        flagPrefix="-P ${BASH_REMATCH}"
+    fi
+
+    # Prepare the command to obtain completions
+    requestComp="${words[1]} __complete ${words[2,-1]}"
+    if [ "${lastChar}" = "" ]; then
+        # If the last parameter is complete (there is a space following it)
+        # We add an extra empty parameter so we can indicate this to the go completion code.
+        __colima_debug "Adding extra empty parameter"
+        requestComp="${requestComp} \"\""
+    fi
+
+    __colima_debug "About to call: eval ${requestComp}"
+
+    # Use eval to handle any environment variables and such
+    out=$(eval ${requestComp} 2>/dev/null)
+    __colima_debug "completion output: ${out}"
+
+    # Extract the directive integer following a : from the last line
+    local lastLine
+    while IFS='\n' read -r line; do
+        lastLine=${line}
+    done < <(printf "%s\n" "${out[@]}")
+    __colima_debug "last line: ${lastLine}"
+
+    if [ "${lastLine[1]}" = : ]; then
+        directive=${lastLine[2,-1]}
+        # Remove the directive including the : and the newline
+        local suffix
+        (( suffix=${#lastLine}+2))
+        out=${out[1,-$suffix]}
+    else
+        # There is no directive specified.  Leave $out as is.
+        __colima_debug "No directive found.  Setting do default"
+        directive=0
+    fi
+
+    __colima_debug "directive: ${directive}"
+    __colima_debug "completions: ${out}"
+    __colima_debug "flagPrefix: ${flagPrefix}"
+
+    if [ $((directive & shellCompDirectiveError)) -ne 0 ]; then
+        __colima_debug "Completion received error. Ignoring completions."
+        return
+    fi
+
+    while IFS='\n' read -r comp; do
+        if [ -n "$comp" ]; then
+            # If requested, completions are returned with a description.
+            # The description is preceded by a TAB character.
+            # For zsh's _describe, we need to use a : instead of a TAB.
+            # We first need to escape any : as part of the completion itself.
+            comp=${comp//:/\\:}
+
+            local tab=$(printf '\t')
+            comp=${comp//$tab/:}
+
+            __colima_debug "Adding completion: ${comp}"
+            completions+=${comp}
+            lastComp=$comp
+        fi
+    done < <(printf "%s\n" "${out[@]}")
+
+    if [ $((directive & shellCompDirectiveNoSpace)) -ne 0 ]; then
+        __colima_debug "Activating nospace."
+        noSpace="-S ''"
+    fi
+
+    if [ $((directive & shellCompDirectiveFilterFileExt)) -ne 0 ]; then
+        # File extension filtering
+        local filteringCmd
+        filteringCmd='_files'
+        for filter in ${completions[@]}; do
+            if [ ${filter[1]} != '*' ]; then
+                # zsh requires a glob pattern to do file filtering
+                filter="\*.$filter"
+            fi
+            filteringCmd+=" -g $filter"
+        done
+        filteringCmd+=" ${flagPrefix}"
+
+        __colima_debug "File filtering command: $filteringCmd"
+        _arguments '*:filename:'"$filteringCmd"
+    elif [ $((directive & shellCompDirectiveFilterDirs)) -ne 0 ]; then
+        # File completion for directories only
+        local subDir
+        subdir="${completions[1]}"
+        if [ -n "$subdir" ]; then
+            __colima_debug "Listing directories in $subdir"
+            pushd "${subdir}" >/dev/null 2>&1
+        else
+            __colima_debug "Listing directories in ."
+        fi
+
+        local result
+        _arguments '*:dirname:_files -/'" ${flagPrefix}"
+        result=$?
+        if [ -n "$subdir" ]; then
+            popd >/dev/null 2>&1
+        fi
+        return $result
+    else
+        __colima_debug "Calling _describe"
+        if eval _describe "completions" completions $flagPrefix $noSpace; then
+            __colima_debug "_describe found some completions"
+
+            # Return the success of having called _describe
+            return 0
+        else
+            __colima_debug "_describe did not find completions."
+            __colima_debug "Checking if we should do file completion."
+            if [ $((directive & shellCompDirectiveNoFileComp)) -ne 0 ]; then
+                __colima_debug "deactivating file completion"
+
+                # We must return an error code here to let zsh know that there were no
+                # completions found by _describe; this is what will trigger other
+                # matching algorithms to attempt to find completions.
+                # For example zsh can match letters in the middle of words.
+                return 1
+            else
+                # Perform file completion
+                __colima_debug "Activating file completion"
+
+                # We must return the result of this command, so it must be the
+                # last command, or else we must store its result to return it.
+                _arguments '*:filename:_files'" ${flagPrefix}"
+            fi
+        fi
+    fi
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_colima" ]; then
+	_colima
+fi
+
