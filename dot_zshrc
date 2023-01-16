@@ -14,7 +14,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
 
   export PATH="$PATH:/opt/homebrew/opt:$HOME/.local/bin:/opt/homebrew/opt/openssl@3/bin"
   export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/include -L/opt/homebrew/lib"
   export PYCURL_SSL_LIBRARY=openssl
 
 
@@ -69,6 +69,7 @@ source $ZSH/oh-my-zsh.sh
 # ~/.zshrc
 
 eval "$(starship init zsh)"
+
 
 
 eval $(thefuck --alias)
