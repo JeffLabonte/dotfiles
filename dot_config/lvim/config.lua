@@ -22,6 +22,10 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.format_on_save = true
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+
+lvim.keys.normal_mode['<Tab>'] = ":tabnext<cr>"
+lvim.keys.normal_mode['<S-Tab>'] = ":tabprevious<cr>"
+
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
