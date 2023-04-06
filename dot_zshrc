@@ -28,10 +28,11 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   alias instance_service="cd ~/Development/Poka/instance-service/"
   
   alias run_login_aws="source ~/.bin/login_aws"
+else;
+  alias update_deps="sudo apt update && sudo apt dist-upgrade -y && brew update && brew upgrade && sudo snap refresh" 
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# ChatGPT
-source "$HOME/.openai_key.zsh"
 # Git shortcut
 alias gs="git status"
 alias gcommit="git commit . -p"
@@ -69,7 +70,6 @@ source $ZSH/oh-my-zsh.sh
 # ~/.zshrc
 
 eval "$(starship init zsh)"
-
 
 
 eval $(thefuck --alias)
@@ -429,3 +429,5 @@ if [ "$funcstack[1]" = "_colima" ]; then
 	_colima
 fi
 
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

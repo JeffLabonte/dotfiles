@@ -48,7 +48,6 @@ lvim.keys.normal_mode['<S-Tab>'] = ":tabprevious<cr>"
 --     ["<C-k>"] = actions.move_selection_previous,
 --   },
 -- }
-
 -- Change theme settings
 -- lvim.builtin.theme.options.dim_inactive = true
 -- lvim.builtin.theme.options.style = "storm"
@@ -138,7 +137,7 @@ lvim.lsp.installer.setup.ensure_installed = {
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { command = "autopep8", filetypes = { "python" } },
-  { command = "isort", args = { '-l', '160', '-m', '2' }, filetypes = { "python" } },
+  { command = "isort",    args = { '-l', '160', '-m', '2' }, filetypes = { "python" } },
 }
 
 -- -- set additional linters
@@ -162,6 +161,24 @@ formatters.setup {
 -- Additional Plugins
 lvim.plugins = {
   {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup {
+          plugin_manager_path = os.getenv "LUNARVIM_RUNTIME_DIR" .. "/site/pack/packer",
+        }
+      end, 100)
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
+  {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     module = "persistence",
@@ -178,21 +195,6 @@ lvim.plugins = {
     config = function()
       require("todo-comments").setup()
     end,
-  },
-  {
-    "tzachar/cmp-tabnine",
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-    config = function()
-      local tabnine = require "cmp_tabnine.config"
-      tabnine:setup {
-        max_lines = 1000,
-        max_num_results = 10,
-        sort = true,
-      }
-    end,
-    opt = true,
-    event = "InsertEnter",
   },
   {
     "wakatime/vim-wakatime"
@@ -223,7 +225,6 @@ lvim.plugins = {
           "--ds=settings.test",
           "${file}"
         }
-
       })
     end
   },
@@ -240,23 +241,15 @@ lvim.plugins = {
     "rmagatti/goto-preview",
     config = function()
       require('goto-preview').setup {
-        width = 120; -- Width of the floating window
-        height = 25; -- Height of the floating window
-        default_mappings = false; -- Bind default mappings
-        debug = false; -- Print debug information
-        opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
-        post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
+        width = 120,              -- Width of the floating window
+        height = 25,              -- Height of the floating window
+        default_mappings = false, -- Bind default mappings
+        debug = false,            -- Print debug information
+        opacity = nil,            -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        post_open_hook = nil      -- A function taking two arguments, a buffer and a window to be ran as a hook.
       }
     end,
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    config = function() require("chatgpt").setup({}) end,
-    requires = {
-      "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  }
 }
 
 local dap = require('dap')
@@ -288,9 +281,6 @@ lvim.builtin.which_key.mappings["S"] = {
   Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
-lvim.builtin.which_key.mappings["G"] = {
-  name = "ChatGPT",
-  k = { "<cmd>:ChatGPT<cr>", "ChatGPT session" },
-  j = { "<cmd>:ChatGPTActAs<cr>", "ChatGPT Act As" },
-  t = { "<cmd>:ChatGPTEditWithInstructions<cr>", "Use ChatGPT to edit" }
-}
+-- Can not be placed into the config method of the plugins.
+-- lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+-- table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
