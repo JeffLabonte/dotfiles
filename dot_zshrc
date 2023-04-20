@@ -5,6 +5,8 @@ export PATH="${PATH}:${HOME}/.local/bin"
 export GPG_TTY="$(tty)"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git/*"'
+alias do_serverless="doctl serverless"
+alias neovim_configs="cd ~/.config/neovim"
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   export DD_TRACE_STARTUP_LOGS=0
@@ -14,7 +16,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
 
   export PATH="$PATH:/opt/homebrew/opt:$HOME/.local/bin:/opt/homebrew/opt/openssl@3/bin"
   export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/include -L/opt/homebrew/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
   export PYCURL_SSL_LIBRARY=openssl
 
 
@@ -29,8 +31,17 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   
   alias run_login_aws="source ~/.bin/login_aws"
 else;
-  alias update_deps="sudo apt update && sudo apt dist-upgrade -y && brew update && brew upgrade && sudo snap refresh" 
+  DISTRO=$(cat /etc/os-release | grep ^ID= | tr -d "ID=")
+
+  if [[ "fedora" == "${DISTRO}" ]]; then
+    NATIVE_UPDATE_COMMAND="sudo dnf upgrade -y && sudo flatpak update"
+  elif [[ "ubuntu" == "${DISTRO}" ]] then
+    NATIVE_UPDATE_COMMAND="sudo apt update && sudo apt dist-upgrade -y && sudo snap refresh"
+  fi
+
+  alias update_deps="${NATIVE_UPDATE_COMMAND} && brew update && brew upgrade" 
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 fi
 
 # Git shortcut
@@ -431,3 +442,4 @@ fi
 
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+autoload -U compinit; compinit
