@@ -19,7 +19,6 @@ lvim.colorscheme = "tokyonight"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.format_on_save = true
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
@@ -136,8 +135,8 @@ lvim.lsp.installer.setup.ensure_installed = {
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "autopep8", filetypes = { "python" } },
-  { command = "isort",    args = { '-l', '160', '-m', '2' }, filetypes = { "python" } },
+  { command = "black", filetypes = { "python" } },
+  { command = "isort", args = { '-l', '160', '-m', '2' }, filetypes = { "python" } },
 }
 
 -- -- set additional linters
