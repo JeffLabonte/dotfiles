@@ -1,0 +1,4 @@
+org.gabmus.nvpunk.preferences.json
+/plugin/*
+/spell/*
+lua/.luarc.json

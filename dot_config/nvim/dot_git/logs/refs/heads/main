@@ -1,0 +1,28 @@
+0000000000000000000000000000000000000000 d573a35180e2856b35e32c5ee68ca37402ae275b Jean-Francois Labonte <grimsleepless@protonmail.com> 1681878791 -0400	commit (initial): Add .gitignore
+d573a35180e2856b35e32c5ee68ca37402ae275b 975257d689e5242766fd4aff82abfe138bf446a0 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681878941 -0400	commit: Add entrypoint script for lua
+975257d689e5242766fd4aff82abfe138bf446a0 d14daca5ca24c8bae1b60dbaf1fc9f9cfa98865e Jean-Francois Labonte <grimsleepless@protonmail.com> 1681878982 -0400	commit: Add lua configs with lazy
+d14daca5ca24c8bae1b60dbaf1fc9f9cfa98865e 3ba24d7a1972514bbd582cdc6a91f1e160068008 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681879863 -0400	commit: WIP - Work on autocmds and add empty keymaps.lua
+3ba24d7a1972514bbd582cdc6a91f1e160068008 a8f9134d602841a561e8d71e5888a018281f0c9a Jean-Francois Labonte <grimsleepless@protonmail.com> 1681944195 -0400	commit: Update autocmds configurations for neovim
+a8f9134d602841a561e8d71e5888a018281f0c9a c9b1fea7ede9bc1442c644cd51c287294916e2b6 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681944787 -0400	commit: Fix error from lazy.lua
+c9b1fea7ede9bc1442c644cd51c287294916e2b6 4c1abd24611f5c83090df35a64278800a6e7476f Jean-Francois Labonte <grimsleepless@protonmail.com> 1681945059 -0400	commit: Add keymaps
+4c1abd24611f5c83090df35a64278800a6e7476f 5809c9fb357db3315ef905a00a3d7efde8cde056 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681946628 -0400	commit: Add first batch of plugins
+5809c9fb357db3315ef905a00a3d7efde8cde056 a4206c05fda9c8861337b86f84d60b8cdd88935b Jean-Francois Labonte <grimsleepless@protonmail.com> 1681956553 -0400	commit: Add logo for the dashboard
+a4206c05fda9c8861337b86f84d60b8cdd88935b 5dfadd274ba46ec923b4bbaba96a226617583528 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681956598 -0400	commit: Create init file for dashboard folder
+5dfadd274ba46ec923b4bbaba96a226617583528 c17d15004b59a9b9d8dd27f1ecc9066a4258567f Jean-Francois Labonte <grimsleepless@protonmail.com> 1681957850 -0400	commit: Add dashboard
+c17d15004b59a9b9d8dd27f1ecc9066a4258567f 8969e8d8e3362c385659e863de4327e2be28f870 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681957952 -0400	commit: Move dashboard to plugins
+8969e8d8e3362c385659e863de4327e2be28f870 8f66774d636961e47418039295da0227a8a8ce78 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965433 -0400	commit: Fix the error with dashboard
+8f66774d636961e47418039295da0227a8a8ce78 1aabff92037d07d61ea730ec3f9b94dffed3f94f Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965467 -0400	commit: Refactor the code
+1aabff92037d07d61ea730ec3f9b94dffed3f94f 59c36f5eb0a96cb640a5c212a5cea2c7078df63d Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965495 -0400	commit: Configure the colorscheme
+59c36f5eb0a96cb640a5c212a5cea2c7078df63d 744db113c913f3c4e78b8d7b74e757217636fb85 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965519 -0400	commit: Create telescope configurations
+744db113c913f3c4e78b8d7b74e757217636fb85 69216f4cf2335057f4defa2fac62cc18511a6a21 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965542 -0400	commit: Create initial configurations for whichkeys
+69216f4cf2335057f4defa2fac62cc18511a6a21 2d5dcc529c81513015f441f407185dfeb3376949 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965566 -0400	commit: Add lazy-lock.json
+2d5dcc529c81513015f441f407185dfeb3376949 f9c01628df8b0a3aa7c8d34bfd0eb7a43e18720e Jean-Francois Labonte <grimsleepless@protonmail.com> 1681965702 -0400	commit: Ignore luarc.json generated file
+f9c01628df8b0a3aa7c8d34bfd0eb7a43e18720e a74f5f7e2a85ad9f4a7cfb6a1b8a585af57adf03 Jean-Francois Labonte <grimsleepless@protonmail.com> 1681966139 -0400	commit: Add beginning of Treesitter configs
+a74f5f7e2a85ad9f4a7cfb6a1b8a585af57adf03 3df517e3d05dc0f0949dfe7e52ab705d2763908b Jean-Francois Labonte <grimsleepless@protonmail.com> 1682050171 -0400	commit: Add changes of lock
+3df517e3d05dc0f0949dfe7e52ab705d2763908b 85252dedd9bc5ef0b1efeacf33f02019db827e4f Jean-Francois Labonte <grimsleepless@protonmail.com> 1682050195 -0400	commit: Working on the configuration of the autocompletion
+85252dedd9bc5ef0b1efeacf33f02019db827e4f 4568271ecb1d8f90061304dd5e5f75488b27f5b5 Jean-Francois Labonte <grimsleepless@protonmail.com> 1682050208 -0400	commit: Remove github/copilot for now
+4568271ecb1d8f90061304dd5e5f75488b27f5b5 6c92e31bbc08ddd5d037c8e3e55820280c02709c Jean-Francois Labonte <grimsleepless@protonmail.com> 1682050221 -0400	commit: Add treesitter function
+6c92e31bbc08ddd5d037c8e3e55820280c02709c 6eeeaa7669792af9fb36b676194dce17e8a38c73 Jean-Francois Labonte <grimsleepless@protonmail.com> 1682133064 -0400	commit: Add first part of autocompletion
+6eeeaa7669792af9fb36b676194dce17e8a38c73 ea572c83dcd1ed2a425a9f51ced39329a3745927 Jean-Francois Labonte <grimsleepless@protonmail.com> 1682135413 -0400	commit: Add icons code
+ea572c83dcd1ed2a425a9f51ced39329a3745927 fd5a6f54fff39eb929ab717773d0da8a789474ed Jean-Francois Labonte <grimsleepless@protonmail.com> 1682135669 -0400	commit: Add lsp init.lua with mason and lsp
+fd5a6f54fff39eb929ab717773d0da8a789474ed f4130b189ca164106136c123f3f365e6ce178139 Jean-Francois Labonte <grimsleepless@protonmail.com> 1682135769 -0400	commit: Add lock.json
