@@ -6,7 +6,9 @@ export GPG_TTY="$(tty)"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git/*"'
 alias do_serverless="doctl serverless"
-alias neovim_configs="cd ~/.config/neovim"
+alias neovim_configs="cd ~/.config/nvim"
+
+alias gcommit="git commit -S -m "
 
 if [[ $OSTYPE == 'darwin'* ]]; then
   export DD_TRACE_STARTUP_LOGS=0
@@ -32,6 +34,8 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   alias run_login_aws="source ~/.bin/login_aws"
 else;
   DISTRO=$(cat /etc/os-release | grep ^ID= | tr -d "ID=")
+
+  alias login_github_ssh='eval `ssh-agent -s` && ssh-add ~/.ssh/github_id'
 
   if [[ "fedora" == "${DISTRO}" ]]; then
     NATIVE_UPDATE_COMMAND="sudo dnf upgrade -y && sudo flatpak update"
