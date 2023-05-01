@@ -1,4 +1,7 @@
-org.gabmus.nvpunk.preferences.json
-/plugin/*
-/spell/*
-lua/.luarc.json
+plugin
+custom
+spell
+ftplugin
+coc-settings.json
+.luarc.json
+lazy-lock.json
