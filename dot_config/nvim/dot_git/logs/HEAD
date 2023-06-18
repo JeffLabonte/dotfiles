@@ -1,1 +1,15 @@
-0000000000000000000000000000000000000000 b51065b1a8218ebc988d3d773e4b552841c09476 Jean-Francois Labonte <grimsleepless@protonmail.com> 1682917714 -0400	clone: from https://github.com/NvChad/NvChad
+0000000000000000000000000000000000000000 f031fa45093193110112d2ff6663659b1ed6ff98 Jean-Francois Labonte <grimsleepless@protonmail.com> 1684984524 -0400	clone: from github.com:JeffLabonte/kickstart.nvim.git
+f031fa45093193110112d2ff6663659b1ed6ff98 c1aba5a2634cb6d2baf298feaa6b436d7afb83bf Jean-Francois Labonte <grimsleepless@protonmail.com> 1684984916 -0400	commit: Add wakatime to configs
+c1aba5a2634cb6d2baf298feaa6b436d7afb83bf 733a1780ef0f9836200e34a0109851a8a5c378bb Jean-Francois Labonte <grimsleepless@protonmail.com> 1684986578 -0400	commit: Update neovim configs
+733a1780ef0f9836200e34a0109851a8a5c378bb 38b1093585880ee9093b9341c7386b848ccdc351 Jean-Francois Labonte <grimsleepless@protonmail.com> 1685338272 -0400	pull: Fast-forward
+38b1093585880ee9093b9341c7386b848ccdc351 a7c9acc863837af1a8043d2f84f1a49a75ca4484 Jean-Francois Labonte <grimsleepless@protonmail.com> 1685851008 -0400	pull: Fast-forward
+a7c9acc863837af1a8043d2f84f1a49a75ca4484 c886ce59e8fe9936276bd1a5677e15c7d0e7b69d Jean-Francois Labonte <grimsleepless@protonmail.com> 1686106498 -0400	pull: Fast-forward
+c886ce59e8fe9936276bd1a5677e15c7d0e7b69d 85f277b8994c9bb5256bb0eba1e019e32cf5cfc6 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686284375 -0400	pull: Fast-forward
+85f277b8994c9bb5256bb0eba1e019e32cf5cfc6 85f277b8994c9bb5256bb0eba1e019e32cf5cfc6 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686285249 -0400	reset: moving to HEAD
+85f277b8994c9bb5256bb0eba1e019e32cf5cfc6 e02704385efa305619e8c884593bcd1fd6a33cb4 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686285300 -0400	commit: Update init.lua
+e02704385efa305619e8c884593bcd1fd6a33cb4 562e1260a938832d1392b52886f7125e973f73d5 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686289992 -0400	commit: Update the concealer for the todos
+562e1260a938832d1392b52886f7125e973f73d5 5125fd927a6211a8fa2069780bb0afbe9bac9fb3 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686290667 -0400	checkout: moving from master to nvim-lua/master
+5125fd927a6211a8fa2069780bb0afbe9bac9fb3 562e1260a938832d1392b52886f7125e973f73d5 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686290682 -0400	checkout: moving from nvim-lua/master to master
+562e1260a938832d1392b52886f7125e973f73d5 9792c9c9b89e2f0b5f4466aeca425f82e467a624 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686290841 -0400	commit (merge): Merge commit '5125fd9'
+9792c9c9b89e2f0b5f4466aeca425f82e467a624 25216b1da5fe71113c83c050590212f97483f5c0 Jean-Francois Labonte <grimsleepless@protonmail.com> 1686710529 -0400	pull: Fast-forward
+25216b1da5fe71113c83c050590212f97483f5c0 eaa09e9770a4f57ef1a419bf9e9145719cacb9af Jean-Francois Labonte <grimsleepless@protonmail.com> 1686710580 -0400	commit: Remove .rpm from repo
